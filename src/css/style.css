@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Music&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.title {
+    font-size: 35px;
+    padding-bottom: 20px;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    border: solid 1px;
+    width: 30%;
+}
+
+.partner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+}
+
+.paginator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    bottom: 0;
+    width: 30%; 
+    padding-top: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #0000FF;
+}
