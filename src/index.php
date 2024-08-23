@@ -13,6 +13,9 @@ $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
 $paginator = new Paginator($totalPartners, $itemsLimit, $currentPage);
 
+$totalPages = $paginator->getTotalPages();
+$range = 4;
+
 $stmt = $db->prepare("SELECT id, name, details_url, website FROM partners LIMIT :limit OFFSET :offset");
 $stmt->bindValue(':limit', $paginator->getLimit(), PDO::PARAM_INT);
 $stmt->bindValue(':offset', $paginator->getOffset(), PDO::PARAM_INT);
@@ -55,14 +58,27 @@ $partners = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
     <div class="pages">
-        <?php for($i = 1; $i < $paginator->getTotalPages(); $i++): ?>
+        <?php if ($currentPage > 1 + $range): ?>
+            <a href="?page=1">1</a>
+            <?php if ($currentPage > 2 + $range): ?>
+                <span>...</span>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php for($i = max(1, $currentPage - $range); $i <= min($totalPages, $currentPage + $range); $i++): ?>
             <?php if($currentPage === $i): ?>
-                
                 <b><?=$currentPage?></b>
             <?php else: ?>
                 <a href="?page=<?=$i?>"><?=$i?></a>
             <?php endif; ?>
         <?php endfor; ?>
+
+        <?php if ($currentPage < $totalPages - $range): ?>
+            <?php if ($currentPage < $totalPages - $range - 1): ?>
+                <span>...</span>
+            <?php endif; ?>
+            <a href="?page=<?=$totalPages?>"><?=$totalPages?></a>
+        <?php endif; ?>
     </div>
 </body>
 </html>
